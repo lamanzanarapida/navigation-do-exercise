@@ -4,11 +4,11 @@ import Testing
 struct NavigationDoExerciseTests {
     @Test func givenSettingsTabSelectedWhenTapToExercisesThenExercisesTabSelected() async throws {
 			let model = ContentModel(
-				selectedTab: 1
+				selectedTab: .settings
 			)
 			
 			model.exercisesButtonTapped()
 			
-			#expect(model.selectedTab == 0)
+			#expect(model.selectedTab == .exercises)
     }
 }

@@ -1,17 +1,21 @@
 import SwiftUI
 
+enum Tab {
+	case exercises, settings
+}
+
 @Observable
 final class ContentModel {
-	var selectedTab: Int
+	var selectedTab: Tab
 	
 	init(
-		selectedTab: Int = 0
+		selectedTab: Tab = .exercises
 	) {
 		self.selectedTab = selectedTab
 	}
 	
 	func exercisesButtonTapped() {
-		selectedTab = 0
+		selectedTab = .exercises
 	}
 }
 
@@ -20,10 +24,10 @@ struct ContentView: View {
 	
 	var body: some View {
 		TabView(selection: $model.selectedTab) {
-			Tab("Exercises", systemImage: "figure.run", value: 0) {
+			SwiftUI.Tab("Exercises", systemImage: "figure.run", value: Tab.exercises) {
 				Text("Exercises")
 			}
-			Tab("Settings", systemImage: "gear", value: 1) {
+			SwiftUI.Tab("Settings", systemImage: "gear", value: Tab.settings) {
 				Button("Tap to exercises") {
 					model.exercisesButtonTapped()
 				}
@@ -41,7 +45,7 @@ struct ContentView: View {
 #Preview("Settings") {
 	ContentView(
 		model: ContentModel(
-			selectedTab: 1
+			selectedTab: .settings
 		)
 	)
 }
