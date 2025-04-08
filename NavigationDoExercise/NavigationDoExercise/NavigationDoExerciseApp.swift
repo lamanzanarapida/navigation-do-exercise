@@ -4,7 +4,9 @@ import SwiftUI
 struct NavigationDoExerciseApp: App {
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
+			ContentView(
+				model: ContentModel()
+			)
 		}
 	}
 }

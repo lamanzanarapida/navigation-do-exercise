@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		309E06482DA59FD000EA2B27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 309E060C2DA58E4D00EA2B27 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 309E06132DA58E4D00EA2B27;
+			remoteInfo = NavigationDoExercise;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		309E06142DA58E4D00EA2B27 /* NavigationDoExercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavigationDoExercise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		309E06442DA59FD000EA2B27 /* NavigationDoExerciseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigationDoExerciseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = NavigationDoExercise;
 			sourceTree = "<group>";
 		};
+		309E06452DA59FD000EA2B27 /* NavigationDoExerciseTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NavigationDoExerciseTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		309E06112DA58E4D00EA2B27 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		309E06412DA59FD000EA2B27 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				309E06162DA58E4D00EA2B27 /* NavigationDoExercise */,
+				309E06452DA59FD000EA2B27 /* NavigationDoExerciseTests */,
 				309E06152DA58E4D00EA2B27 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				309E06142DA58E4D00EA2B27 /* NavigationDoExercise.app */,
+				309E06442DA59FD000EA2B27 /* NavigationDoExerciseTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = 309E06142DA58E4D00EA2B27 /* NavigationDoExercise.app */;
 			productType = "com.apple.product-type.application";
 		};
+		309E06432DA59FD000EA2B27 /* NavigationDoExerciseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 309E064A2DA59FD000EA2B27 /* Build configuration list for PBXNativeTarget "NavigationDoExerciseTests" */;
+			buildPhases = (
+				309E06402DA59FD000EA2B27 /* Sources */,
+				309E06412DA59FD000EA2B27 /* Frameworks */,
+				309E06422DA59FD000EA2B27 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				309E06492DA59FD000EA2B27 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				309E06452DA59FD000EA2B27 /* NavigationDoExerciseTests */,
+			);
+			name = NavigationDoExerciseTests;
+			packageProductDependencies = (
+			);
+			productName = NavigationDoExerciseTests;
+			productReference = 309E06442DA59FD000EA2B27 /* NavigationDoExerciseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +130,10 @@
 				TargetAttributes = {
 					309E06132DA58E4D00EA2B27 = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					309E06432DA59FD000EA2B27 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 309E06132DA58E4D00EA2B27;
 					};
 				};
 			};
@@ -100,12 +152,20 @@
 			projectRoot = "";
 			targets = (
 				309E06132DA58E4D00EA2B27 /* NavigationDoExercise */,
+				309E06432DA59FD000EA2B27 /* NavigationDoExerciseTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		309E06122DA58E4D00EA2B27 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		309E06422DA59FD000EA2B27 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +182,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		309E06402DA59FD000EA2B27 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		309E06492DA59FD000EA2B27 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 309E06132DA58E4D00EA2B27 /* NavigationDoExercise */;
+			targetProxy = 309E06482DA59FD000EA2B27 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		309E061D2DA58E4D00EA2B27 /* Debug */ = {
@@ -302,6 +377,42 @@
 			};
 			name = Release;
 		};
+		309E064B2DA59FD000EA2B27 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CCGZFCU763;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manzanarapida.NavigationDoExerciseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavigationDoExercise.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NavigationDoExercise";
+			};
+			name = Debug;
+		};
+		309E064C2DA59FD000EA2B27 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = CCGZFCU763;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.manzanarapida.NavigationDoExerciseTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavigationDoExercise.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NavigationDoExercise";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -319,6 +430,15 @@
 			buildConfigurations = (
 				309E06202DA58E4D00EA2B27 /* Debug */,
 				309E06212DA58E4D00EA2B27 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		309E064A2DA59FD000EA2B27 /* Build configuration list for PBXNativeTarget "NavigationDoExerciseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				309E064B2DA59FD000EA2B27 /* Debug */,
+				309E064C2DA59FD000EA2B27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
