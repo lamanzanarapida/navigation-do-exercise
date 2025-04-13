@@ -12,3 +12,13 @@ struct ExercisesView: View {
 		.listRowSpacing(8)
 	}
 }
+
+#Preview {
+	ExercisesView(
+		model: ExercisesModel(
+			exercises: (0..<50).map { _ in
+				Exercise.fake(.random)
+			}
+		)
+	)
+}
