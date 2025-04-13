@@ -8,6 +8,9 @@ struct ExercisesView: View {
 			ForEach(model.exercises) { exercise in
 				ExerciseRowView(exercise: exercise)
 			}
+			.onDelete { indexSet in
+				model.onDeleteExercises(indexSet)
+			}
 		}
 		.listRowSpacing(8)
 	}
