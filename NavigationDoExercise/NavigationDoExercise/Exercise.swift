@@ -68,3 +68,16 @@ extension Exercise {
 		type.color
 	}
 }
+
+extension Exercise {
+	static func fake(type: Exercise.Mode) -> Self {
+		Self(
+			id: UUID(),
+			distance: 15.45,
+			title: "First exercise of my life",
+			starts: .now,
+			finished: .now.addingTimeInterval(3600),
+			type: type
+		)
+	}
+}
