@@ -23,7 +23,11 @@ struct ExercisesView: View {
 			isPresented: $model.alertIsPresented,
 			presenting: model.exerciseToRemove
 		) { exercise in
-			Button("Remove", role: .destructive) {}
+			Button("Remove", role: .destructive) {
+				withAnimation {
+					model.confirmDeleteButtonTapped()
+				}
+			}
 		} message: { exercise in
 			Text("Are you sure that you want to remove this exercise? Total distance \(exercise.distanceFormatted).")
 		}

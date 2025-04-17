@@ -17,4 +17,14 @@ class ExercisesModel {
 		alertIsPresented = true
 		exerciseToRemove = exercise
 	}
+	
+	func confirmDeleteButtonTapped() {
+		guard
+			let exercise = exerciseToRemove,
+			let index = exercises.firstIndex(where: { exercise.id == $0.id })
+		else { return }
+		exercises.remove(at: index)
+		alertIsPresented = false
+		exerciseToRemove = nil
+	}
 }
