@@ -7,15 +7,19 @@ struct ExercisesView: View {
 		List {
 			ForEach(model.exercises) { exercise in
 				ExerciseRowView(exercise: exercise)
-			}
-			.onDelete { indexSet in
-				model.onDeleteExercises(indexSet)
+					.swipeActions(edge: .trailing) {
+						Button {
+						} label: {
+							Label("Trash", systemImage: "trash")
+						}
+						.tint(.red)
+					}
 			}
 		}
 		.listRowSpacing(8)
 		.alert(
 			"Delete exercise",
-			isPresented: .constant(true),
+			isPresented: .constant(false),
 			presenting: Exercise.fake(type: .cycling)
 		) { exercise in
 			Button("Remove \(exercise.type.rawValue)", role: .destructive) {}
