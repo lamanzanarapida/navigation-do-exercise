@@ -15,6 +15,14 @@ struct ExercisesView: View {
 						}
 						.tint(.red)
 					}
+					.swipeActions(edge: .leading) {
+						Button {
+							model.dialogButtonTapped(exercise)
+						} label: {
+							Label("Flag", systemImage: "flag")
+						}
+						.tint(.green)
+					}
 			}
 		}
 		.listRowSpacing(8)
@@ -30,6 +38,26 @@ struct ExercisesView: View {
 			}
 		} message: { exercise in
 			Text("Are you sure that you want to remove this exercise? Total distance \(exercise.distanceFormatted).")
+		}
+		.confirmationDialog(
+			"Change exercise type",
+			isPresented: $model.dialogIsPresented,
+			titleVisibility: .visible
+		) {
+			Button("Cycling") {
+				withAnimation { model.confirmDialogButtonTapped(type: .cycling) }
+			}
+			Button("Swimming") {
+				withAnimation { model.confirmDialogButtonTapped(type: .swimming) }
+			}
+			Button("Running") {
+				withAnimation { model.confirmDialogButtonTapped(type: .running) }
+			}
+			Button("Walking") {
+				withAnimation { model.confirmDialogButtonTapped(type: .walking) }
+			}
+		} message: {
+			Text("Choose a new option for the exercise type.")
 		}
 	}
 }

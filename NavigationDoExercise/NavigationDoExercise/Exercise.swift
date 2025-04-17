@@ -7,7 +7,7 @@ struct Exercise: Identifiable {
 	let title: String
 	let starts: Date
 	let finished: Date?
-	let type: Mode
+	var type: Mode
 	
 	var isFinished: Bool {
 		finished != nil
