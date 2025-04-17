@@ -3,7 +3,7 @@ import Observation
 
 @Observable
 class ExercisesModel {
-	var alertIsPresented: Bool = true
+	var alertIsPresented = false
 	var exercises: [Exercise]
 	var exerciseToRemove: Exercise?
 	
@@ -13,9 +13,8 @@ class ExercisesModel {
 		self.exercises = exercises
 	}
 	
-	func onDeleteExercises(_ indexSet: IndexSet) {
-		for index in indexSet {
-			exercises.remove(at: index)
-		}
+	func onDeleteButtonTapped(_ exercise: Exercise) {
+		alertIsPresented = true
+		exerciseToRemove = exercise
 	}
 }

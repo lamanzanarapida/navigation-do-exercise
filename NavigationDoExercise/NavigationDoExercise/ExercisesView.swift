@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ExercisesView: View {
-	let model: ExercisesModel
+	@Bindable var model: ExercisesModel
 	
 	var body: some View {
 		List {
@@ -9,6 +9,7 @@ struct ExercisesView: View {
 				ExerciseRowView(exercise: exercise)
 					.swipeActions(edge: .trailing) {
 						Button {
+							model.onDeleteButtonTapped(exercise)
 						} label: {
 							Label("Trash", systemImage: "trash")
 						}
@@ -19,10 +20,10 @@ struct ExercisesView: View {
 		.listRowSpacing(8)
 		.alert(
 			"Delete exercise",
-			isPresented: .constant(false),
-			presenting: Exercise.fake(type: .cycling)
+			isPresented: $model.alertIsPresented,
+			presenting: model.exerciseToRemove
 		) { exercise in
-			Button("Remove \(exercise.type.rawValue)", role: .destructive) {}
+			Button("Remove", role: .destructive) {}
 		} message: { exercise in
 			Text("Are you sure that you want to remove this exercise? Total distance \(exercise.distanceFormatted).")
 		}
