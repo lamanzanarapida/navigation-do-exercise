@@ -3,7 +3,9 @@ import Observation
 
 @Observable
 class ExercisesModel {
+	var alertIsPresented: Bool = true
 	var exercises: [Exercise]
+	var exerciseToRemove: Exercise?
 	
 	init(
 		exercises: [Exercise] = []

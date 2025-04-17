@@ -13,6 +13,15 @@ struct ExercisesView: View {
 			}
 		}
 		.listRowSpacing(8)
+		.alert(
+			"Delete exercise",
+			isPresented: .constant(true),
+			presenting: Exercise.fake(type: .cycling)
+		) { exercise in
+			Button("Remove \(exercise.type.rawValue)", role: .destructive) {}
+		} message: { exercise in
+			Text("Are you sure that you want to remove this exercise? Total distance \(exercise.distanceFormatted).")
+		}
 	}
 }
 
