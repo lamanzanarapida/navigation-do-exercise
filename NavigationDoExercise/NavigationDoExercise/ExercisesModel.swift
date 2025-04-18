@@ -3,45 +3,58 @@ import Observation
 
 @Observable
 class ExercisesModel {
-	var alertIsPresented = false
-	var dialogIsPresented = false
+	var destination: Destination?
 	var exercises: [Exercise]
-	var exerciseToRemove: Exercise?
-	var exerciseToUpdate: Exercise?
+	
+	enum Destination {
+		case alert(Exercise)
+		case dialog(Exercise)
+	}
 	
 	init(
+		destination: Destination? = nil,
 		exercises: [Exercise] = []
 	) {
+		self.destination = destination
 		self.exercises = exercises
 	}
 	
-	func confirmDeleteButtonTapped() {
+	func alertButtonTapped(_ exercise: Exercise) {
+		destination = .alert(exercise)
+	}
+	
+	func confirmAlertButtonTapped() {
 		guard
-			let exercise = exerciseToRemove,
+			case let .alert(exercise) = destination,
 			let index = exercises.firstIndex(where: { exercise.id == $0.id })
 		else { return }
 		exercises.remove(at: index)
-		alertIsPresented = false
-		exerciseToRemove = nil
+		destination = nil
 	}
 	
 	func confirmDialogButtonTapped(type: Exercise.Mode) {
 		guard
-			let exercise = exerciseToUpdate,
+			case let .dialog(exercise) = destination,
 			let index = exercises.firstIndex(where: { exercise.id == $0.id })
 		else { return }
 		exercises[index].type = type
-		dialogIsPresented = false
-		exerciseToUpdate = nil
+		destination = nil
 	}
 	
 	func dialogButtonTapped(_ exercise: Exercise) {
-		dialogIsPresented = true
-		exerciseToUpdate = exercise
+		destination = .dialog(exercise)
 	}
 	
-	func onDeleteButtonTapped(_ exercise: Exercise) {
-		alertIsPresented = true
-		exerciseToRemove = exercise
+	func dismissButtonTapped() {
+		destination = nil
+	}
+}
+
+extension ExercisesModel.Destination {
+	var exerciseToRemove: Exercise? {
+		guard case let .alert(exercise) = self else {
+			return nil
+		}
+		return exercise
 	}
 }

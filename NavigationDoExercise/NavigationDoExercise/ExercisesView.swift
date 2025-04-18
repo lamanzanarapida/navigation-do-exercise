@@ -9,7 +9,7 @@ struct ExercisesView: View {
 				ExerciseRowView(exercise: exercise)
 					.swipeActions(edge: .trailing) {
 						Button {
-							model.onDeleteButtonTapped(exercise)
+							model.alertButtonTapped(exercise)
 						} label: {
 							Label("Trash", systemImage: "trash")
 						}
@@ -28,12 +28,23 @@ struct ExercisesView: View {
 		.listRowSpacing(8)
 		.alert(
 			"Delete exercise",
-			isPresented: $model.alertIsPresented,
-			presenting: model.exerciseToRemove
+			isPresented: Binding(
+				get: {
+					if case .alert = model.destination {
+						return true
+					}
+					return false
+				}, set: { isPresented in
+					if !isPresented {
+						model.dismissButtonTapped()
+					}
+				}
+			),
+			presenting: model.destination?.exerciseToRemove
 		) { exercise in
 			Button("Remove", role: .destructive) {
 				withAnimation {
-					model.confirmDeleteButtonTapped()
+					model.confirmAlertButtonTapped()
 				}
 			}
 		} message: { exercise in
@@ -41,7 +52,16 @@ struct ExercisesView: View {
 		}
 		.confirmationDialog(
 			"Change exercise type",
-			isPresented: $model.dialogIsPresented,
+			isPresented: Binding(
+				get: {
+					if case .dialog = model.destination {
+						return true
+					}
+					return false
+				}, set: { isPresented in
+					model.dismissButtonTapped()
+				}
+			),
 			titleVisibility: .visible
 		) {
 			Button("Cycling") {
