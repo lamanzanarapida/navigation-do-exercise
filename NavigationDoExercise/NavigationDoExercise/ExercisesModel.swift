@@ -7,7 +7,7 @@ class ExercisesModel {
 	var exercises: [Exercise]
 	
 	enum Destination: Equatable {
-		case add
+		case add(ExerciseModel)
 		case alert(Exercise)
 		case dialog(Exercise)
 	}
@@ -21,7 +21,7 @@ class ExercisesModel {
 	}
 	
 	func addExerciseButtonTapped() {
-			destination = .add
+			destination = .add(ExerciseModel())
 	}
 	
 	func alertButtonTapped(_ exercise: Exercise) {

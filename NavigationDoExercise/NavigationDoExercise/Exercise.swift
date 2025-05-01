@@ -3,10 +3,10 @@ import SwiftUI
 
 struct Exercise: Identifiable, Equatable {
 	let id: UUID
-	let distance: Double
-	let title: String
-	let starts: Date
-	let finished: Date?
+	var distance: Double
+	var title: String
+	var starts: Date
+	var finished: Date?
 	var type: Mode
 	
 	var isFinished: Bool {
@@ -44,6 +44,17 @@ extension Exercise.Mode {
 				return .orange
 		}
 	}
+}
+
+extension Exercise {
+	static let empty = Self(
+		id: UUID(),
+		distance: 0,
+		title: "",
+		starts: .now,
+		finished: nil,
+		type: .cycling
+	)
 }
 
 extension Exercise {

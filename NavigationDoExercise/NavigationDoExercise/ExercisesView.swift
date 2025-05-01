@@ -88,7 +88,12 @@ struct ExercisesView: View {
 		}
 		.sheet(
 			isPresented: Binding(
-				get: { model.destination == .add },
+				get: {
+					if case .add = model.destination {
+						return true
+					}
+					return false
+				},
 				set: { isPresented in
 					if !isPresented {
 						model.dismissButtonTapped()
@@ -97,7 +102,25 @@ struct ExercisesView: View {
 			),
 			onDismiss: { model.dismissButtonTapped() },
 			content: {
-				Text("New sheet")
+				if case let .add(model) = model.destination {
+					NavigationStack {
+						ExerciseView(model: model)
+							.navigationTitle("New exercise!")
+							.toolbar {
+								ToolbarItem(placement: .cancellationAction) {
+									Button("Cancel") {
+										self.model.dismissButtonTapped()
+									}
+								}
+								ToolbarItem(placement: .primaryAction) {
+									Button("Add") {
+										self.model.confirmAddButtonTapped(exercise: model.exercise)
+									}
+									.disabled(model.addExerciseButtonDisabled)
+								}
+							}
+					}
+				}
 			}
 		)
 	}
