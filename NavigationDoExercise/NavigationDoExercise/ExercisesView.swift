@@ -6,35 +6,90 @@ struct ExercisesView: View {
 	var body: some View {
 		List {
 			ForEach(model.exercises.sorted(by: { $0.starts > $1.starts })) { exercise in
-				ExerciseRowView(exercise: exercise)
-					.swipeActions(edge: .trailing) {
-						Button {
-							model.alertButtonTapped(exercise)
-						} label: {
-							Label("Trash", systemImage: "trash")
+				Button {
+					model.editButtonTapped(exercise)
+				} label: {
+					ExerciseRowView(exercise: exercise)
+						.contentShape(Rectangle())
+						.swipeActions(edge: .trailing) {
+							Button {
+								model.alertButtonTapped(exercise)
+							} label: {
+								Label("Trash", systemImage: "trash")
+							}
+							.tint(.red)
 						}
-						.tint(.red)
-					}
-					.swipeActions(edge: .leading) {
-						Button {
-							model.dialogButtonTapped(exercise)
-						} label: {
-							Label("Flag", systemImage: "flag")
+						.swipeActions(edge: .leading) {
+							Button {
+								model.dialogButtonTapped(exercise)
+							} label: {
+								Label("Flag", systemImage: "flag")
+							}
+							.tint(.green)
 						}
-						.tint(.green)
-					}
+				}
+				.buttonStyle(.plain)
 			}
 		}
 		.listRowSpacing(8)
-		.navigationTitle("Exercises")
-		.toolbar {
-				ToolbarItem(placement: .confirmationAction) {
-						Button {
-								model.addExerciseButtonTapped()
-						} label: {
-								Image(systemName: "plus")
+		.sheet(
+			item: Binding(
+				get: { model.destination?.exerciseToAdd },
+				set: { isPresented in
+					if isPresented == nil {
+						model.dismissButtonTapped()
+					}
+				}
+			),
+			onDismiss: { model.dismissButtonTapped() },
+			content: { model in
+				NavigationStack {
+					ExerciseView(model: model)
+						.navigationTitle("New exercise!")
+						.toolbar {
+							ToolbarItem(placement: .cancellationAction) {
+								Button("Cancel") {
+									self.model.dismissButtonTapped()
+								}
+							}
+							ToolbarItem(placement: .primaryAction) {
+								Button("Add") {
+									self.model.confirmAddButtonTapped(exercise: model.exercise)
+								}
+								.disabled(model.exerciseButtonDisabled)
+							}
 						}
 				}
+			}
+		)
+		.navigationDestination(
+			item: Binding(
+				get: { model.destination?.exerciseToEdit },
+				set: { isPresented in
+					if isPresented == nil {
+						model.dismissButtonTapped()
+					}
+				}
+			)
+		) { model in
+			NavigationStack {
+				ExerciseView(model: model)
+					.navigationTitle("Edit exercise")
+					.navigationBarBackButtonHidden()
+					.toolbar {
+						ToolbarItem(placement: .cancellationAction) {
+							Button("Cancel") {
+								self.model.dismissButtonTapped()
+							}
+						}
+						ToolbarItem(placement: .primaryAction) {
+							Button("Edit") {
+								self.model.confirmEditButtonTapped(exercise: model.exercise)
+							}
+							.disabled(model.exerciseButtonDisabled)
+						}
+					}
+			}
 		}
 		.alert(
 			"Delete exercise",
@@ -86,36 +141,15 @@ struct ExercisesView: View {
 		} message: { _ in
 			Text("Choose a new option for the exercise type.")
 		}
-		.sheet(
-			item: Binding(
-				get: { model.destination?.exerciseToAdd },
-				set: { isPresented in
-					if isPresented == nil {
-						model.dismissButtonTapped()
-					}
-				}
-			),
-			onDismiss: { model.dismissButtonTapped() },
-			content: { model in
-				NavigationStack {
-					ExerciseView(model: model)
-						.navigationTitle("New exercise!")
-						.toolbar {
-							ToolbarItem(placement: .cancellationAction) {
-								Button("Cancel") {
-									self.model.dismissButtonTapped()
-								}
-							}
-							ToolbarItem(placement: .primaryAction) {
-								Button("Add") {
-									self.model.confirmAddButtonTapped(exercise: model.exercise)
-								}
-								.disabled(model.addExerciseButtonDisabled)
-							}
+		.toolbar {
+				ToolbarItem(placement: .confirmationAction) {
+						Button {
+								model.addExerciseButtonTapped()
+						} label: {
+								Image(systemName: "plus")
 						}
 				}
-			}
-		)
+		}
 	}
 }
 
@@ -123,7 +157,7 @@ struct ExercisesView: View {
 	NavigationStack {
 		ExercisesView(
 			model: ExercisesModel(
-				exercises: (0..<50).map { _ in
+				exercises: (0..<5).map { _ in
 					Exercise.fake(.random)
 				}
 			)

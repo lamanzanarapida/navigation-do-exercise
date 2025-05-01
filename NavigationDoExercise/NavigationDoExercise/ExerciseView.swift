@@ -10,7 +10,7 @@ class ExerciseModel {
 		self.exercise = exercise
 	}
 	
-	var addExerciseButtonDisabled: Bool {
+	var exerciseButtonDisabled: Bool {
 		exercise.title.isEmpty
 		|| exercise.distance == 0
 	}
@@ -19,6 +19,12 @@ class ExerciseModel {
 extension ExerciseModel: Equatable {
 	static func == (lhs: ExerciseModel, rhs: ExerciseModel) -> Bool {
 		lhs.exercise == rhs.exercise
+	}
+}
+
+extension ExerciseModel: Hashable {
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(exercise)
 	}
 }
 

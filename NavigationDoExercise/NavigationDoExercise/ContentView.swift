@@ -6,11 +6,14 @@ enum Tab {
 
 @Observable
 final class ContentModel {
+	var exercisesModel: ExercisesModel
 	var selectedTab: Tab
 	
 	init(
+		exercisesModel: ExercisesModel = ExercisesModel(),
 		selectedTab: Tab = .exercises
 	) {
+		self.exercisesModel = exercisesModel
 		self.selectedTab = selectedTab
 	}
 	
@@ -25,7 +28,12 @@ struct ContentView: View {
 	var body: some View {
 		TabView(selection: $model.selectedTab) {
 			SwiftUI.Tab("Exercises", systemImage: "figure.run", value: Tab.exercises) {
-				Text("Exercises")
+				NavigationStack {
+					ExercisesView(
+						model: model.exercisesModel
+					)
+					.navigationTitle("Exercises")
+				}
 			}
 			SwiftUI.Tab("Settings", systemImage: "gear", value: Tab.settings) {
 				Button("Tap to exercises") {
@@ -38,7 +46,13 @@ struct ContentView: View {
 
 #Preview("Exercises") {
 	ContentView(
-		model: ContentModel()
+		model: ContentModel(
+			exercisesModel: ExercisesModel(
+				exercises: (0..<5).map { _ in
+					Exercise.fake(.random)
+				}
+			)
+		)
 	)
 }
 

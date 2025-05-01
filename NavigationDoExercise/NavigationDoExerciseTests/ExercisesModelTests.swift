@@ -37,15 +37,31 @@ struct NavigationDoExercisesListTests {
 		
 		model.addExerciseButtonTapped()
 		
-		#expect(model.destination?.exerciseToAdd!.addExerciseButtonDisabled == true)
+		#expect(model.destination?.exerciseToAdd!.exerciseButtonDisabled == true)
 		
-		model.destination?.exerciseToAdd!.exercise.title = "New exercise"
-		model.destination?.exerciseToAdd!.exercise.distance = 1.5
+		model.destination!.exerciseToAdd!.exercise.title = "New exercise"
+		model.destination!.exerciseToAdd!.exercise.distance = 1.5
 		
-		#expect(model.destination?.exerciseToAdd!.addExerciseButtonDisabled == false)
+		#expect(model.destination!.exerciseToAdd!.exerciseButtonDisabled == false)
 		
 		model.confirmAddButtonTapped(exercise: model.destination!.exerciseToAdd!.exercise)
 		
 		#expect(model.exercises.count == 1)
+	}
+	
+	@Test func givenExercisesWhenEditButtonTappedExerciseIsEdited() async throws {
+		let exercise = Exercise.fake(type: .cycling)
+		
+		let model = ExercisesModel(
+			exercises: [
+				exercise
+			]
+		)
+		
+		model.editButtonTapped(exercise)
+		model.destination!.exerciseToEdit!.exercise.title = "Edited exercise"
+		model.confirmEditButtonTapped(exercise: model.destination!.exerciseToEdit!.exercise)
+		
+		#expect(model.exercises[0].title == "Edited exercise")
 	}
 }

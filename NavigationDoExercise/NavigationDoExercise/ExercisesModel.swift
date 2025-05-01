@@ -10,6 +10,7 @@ class ExercisesModel {
 		case add(ExerciseModel)
 		case alert(Exercise)
 		case dialog(Exercise)
+		case edit(ExerciseModel)
 	}
 	
 	init(
@@ -51,6 +52,14 @@ class ExercisesModel {
 		destination = nil
 	}
 	
+	func confirmEditButtonTapped(exercise: Exercise) {
+		guard
+			let index = exercises.firstIndex(where: { $0.id == exercise.id })
+		else { return }
+		exercises[index] = exercise
+		destination = nil
+	}
+	
 	func dialogButtonTapped(_ exercise: Exercise) {
 		destination = .dialog(exercise)
 	}
@@ -58,11 +67,21 @@ class ExercisesModel {
 	func dismissButtonTapped() {
 		destination = nil
 	}
+	
+	func editButtonTapped(_ exercise: Exercise) {
+		destination = .edit(ExerciseModel(exercise: exercise))
+	}
 }
 
 extension ExercisesModel.Destination {
 	var exerciseToAdd: ExerciseModel? {
 		guard case let .add(model) = self else {
+			return nil
+		}
+		return model
+	}
+	var exerciseToEdit: ExerciseModel? {
+		guard case let .edit(model) = self else {
 			return nil
 		}
 		return model
