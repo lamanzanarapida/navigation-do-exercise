@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct Exercise: Identifiable {
+struct Exercise: Identifiable, Equatable {
 	let id: UUID
 	let distance: Double
 	let title: String

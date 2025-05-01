@@ -26,6 +26,16 @@ struct ExercisesView: View {
 			}
 		}
 		.listRowSpacing(8)
+		.navigationTitle("Exercises")
+		.toolbar {
+				ToolbarItem(placement: .confirmationAction) {
+						Button {
+								model.addExerciseButtonTapped()
+						} label: {
+								Image(systemName: "plus")
+						}
+				}
+		}
 		.alert(
 			"Delete exercise",
 			isPresented: Binding(
@@ -62,28 +72,45 @@ struct ExercisesView: View {
 					model.dismissButtonTapped()
 				}
 			),
-			titleVisibility: .visible
-		) {
+			titleVisibility: .visible,
+			presenting: model.destination?.exerciseToUpdate
+		) { exercise in
 			ForEach(
-				Exercise.Mode.allCases,
+				Exercise.Mode.allCases.filter { $0 != exercise.type },
 				id: \.self
 			) { type in
 				Button(type.rawValue.capitalized) {
 					withAnimation { model.confirmDialogButtonTapped(type: type) }
 				}
 			}
-		} message: {
+		} message: { _ in
 			Text("Choose a new option for the exercise type.")
 		}
+		.sheet(
+			isPresented: Binding(
+				get: { model.destination == .add },
+				set: { isPresented in
+					if !isPresented {
+						model.dismissButtonTapped()
+					}
+				}
+			),
+			onDismiss: { model.dismissButtonTapped() },
+			content: {
+				Text("New sheet")
+			}
+		)
 	}
 }
 
 #Preview {
-	ExercisesView(
-		model: ExercisesModel(
-			exercises: (0..<50).map { _ in
-				Exercise.fake(.random)
-			}
+	NavigationStack {
+		ExercisesView(
+			model: ExercisesModel(
+				exercises: (0..<50).map { _ in
+					Exercise.fake(.random)
+				}
+			)
 		)
-	)
+	}
 }

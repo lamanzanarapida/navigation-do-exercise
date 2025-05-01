@@ -6,7 +6,8 @@ class ExercisesModel {
 	var destination: Destination?
 	var exercises: [Exercise]
 	
-	enum Destination {
+	enum Destination: Equatable {
+		case add
 		case alert(Exercise)
 		case dialog(Exercise)
 	}
@@ -17,6 +18,10 @@ class ExercisesModel {
 	) {
 		self.destination = destination
 		self.exercises = exercises
+	}
+	
+	func addExerciseButtonTapped() {
+			destination = .add
 	}
 	
 	func alertButtonTapped(_ exercise: Exercise) {
@@ -53,6 +58,12 @@ class ExercisesModel {
 extension ExercisesModel.Destination {
 	var exerciseToRemove: Exercise? {
 		guard case let .alert(exercise) = self else {
+			return nil
+		}
+		return exercise
+	}
+	var exerciseToUpdate: Exercise? {
+		guard case let .dialog(exercise) = self else {
 			return nil
 		}
 		return exercise
