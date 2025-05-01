@@ -5,7 +5,7 @@ struct ExercisesView: View {
 	
 	var body: some View {
 		List {
-			ForEach(model.exercises) { exercise in
+			ForEach(model.exercises.sorted(by: { $0.starts > $1.starts })) { exercise in
 				ExerciseRowView(exercise: exercise)
 					.swipeActions(edge: .trailing) {
 						Button {
@@ -64,17 +64,13 @@ struct ExercisesView: View {
 			),
 			titleVisibility: .visible
 		) {
-			Button("Cycling") {
-				withAnimation { model.confirmDialogButtonTapped(type: .cycling) }
-			}
-			Button("Swimming") {
-				withAnimation { model.confirmDialogButtonTapped(type: .swimming) }
-			}
-			Button("Running") {
-				withAnimation { model.confirmDialogButtonTapped(type: .running) }
-			}
-			Button("Walking") {
-				withAnimation { model.confirmDialogButtonTapped(type: .walking) }
+			ForEach(
+				Exercise.Mode.allCases,
+				id: \.self
+			) { type in
+				Button(type.rawValue.capitalized) {
+					withAnimation { model.confirmDialogButtonTapped(type: type) }
+				}
 			}
 		} message: {
 			Text("Choose a new option for the exercise type.")
