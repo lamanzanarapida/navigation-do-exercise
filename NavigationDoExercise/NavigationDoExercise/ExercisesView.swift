@@ -87,39 +87,32 @@ struct ExercisesView: View {
 			Text("Choose a new option for the exercise type.")
 		}
 		.sheet(
-			isPresented: Binding(
-				get: {
-					if case .add = model.destination {
-						return true
-					}
-					return false
-				},
+			item: Binding(
+				get: { model.destination?.exerciseToAdd },
 				set: { isPresented in
-					if !isPresented {
+					if isPresented == nil {
 						model.dismissButtonTapped()
 					}
 				}
 			),
 			onDismiss: { model.dismissButtonTapped() },
-			content: {
-				if case let .add(model) = model.destination {
-					NavigationStack {
-						ExerciseView(model: model)
-							.navigationTitle("New exercise!")
-							.toolbar {
-								ToolbarItem(placement: .cancellationAction) {
-									Button("Cancel") {
-										self.model.dismissButtonTapped()
-									}
-								}
-								ToolbarItem(placement: .primaryAction) {
-									Button("Add") {
-										self.model.confirmAddButtonTapped(exercise: model.exercise)
-									}
-									.disabled(model.addExerciseButtonDisabled)
+			content: { model in
+				NavigationStack {
+					ExerciseView(model: model)
+						.navigationTitle("New exercise!")
+						.toolbar {
+							ToolbarItem(placement: .cancellationAction) {
+								Button("Cancel") {
+									self.model.dismissButtonTapped()
 								}
 							}
-					}
+							ToolbarItem(placement: .primaryAction) {
+								Button("Add") {
+									self.model.confirmAddButtonTapped(exercise: model.exercise)
+								}
+								.disabled(model.addExerciseButtonDisabled)
+							}
+						}
 				}
 			}
 		)

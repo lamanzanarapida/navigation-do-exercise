@@ -31,4 +31,21 @@ struct NavigationDoExercisesListTests {
 		
 		#expect(model.exercises[0].type == .running)
 	}
+	
+	@Test func givenExercisesWhenAddButtonTappedNewExerciseAdded() async throws {
+		let model = ExercisesModel()
+		
+		model.addExerciseButtonTapped()
+		
+		#expect(model.destination?.exerciseToAdd!.addExerciseButtonDisabled == true)
+		
+		model.destination?.exerciseToAdd!.exercise.title = "New exercise"
+		model.destination?.exerciseToAdd!.exercise.distance = 1.5
+		
+		#expect(model.destination?.exerciseToAdd!.addExerciseButtonDisabled == false)
+		
+		model.confirmAddButtonTapped(exercise: model.destination!.exerciseToAdd!.exercise)
+		
+		#expect(model.exercises.count == 1)
+	}
 }

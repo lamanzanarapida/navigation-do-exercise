@@ -28,6 +28,11 @@ class ExercisesModel {
 		destination = .alert(exercise)
 	}
 	
+	func confirmAddButtonTapped(exercise: Exercise) {
+		exercises.append(exercise)
+		destination = nil
+	}
+	
 	func confirmAlertButtonTapped() {
 		guard
 			case let .alert(exercise) = destination,
@@ -56,6 +61,12 @@ class ExercisesModel {
 }
 
 extension ExercisesModel.Destination {
+	var exerciseToAdd: ExerciseModel? {
+		guard case let .add(model) = self else {
+			return nil
+		}
+		return model
+	}
 	var exerciseToRemove: Exercise? {
 		guard case let .alert(exercise) = self else {
 			return nil
